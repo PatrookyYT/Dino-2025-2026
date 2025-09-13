@@ -3,15 +3,19 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoController;
 
 @TeleOp(name = "TeleOpFTCBasic (Use For Driving)")
 public class TeleOpFTCBasic extends LinearOpMode {
 
-    private DcMotor BackLeft;
+    private DcMotor FrontRight;
     private DcMotor BackRight;
     private DcMotor FrontLeft;
-    private DcMotor FrontRight;
+    private DcMotor BackLeft;
+
+    private DcMotor StarMotors;
+
 
     private ServoController ControlHub_ServoController;
 
@@ -37,7 +41,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
         float horizontalGp2_right;
         float pivot;
 
-        boolean viperSlideIsUp = false;
+        boolean StarMotorActive = false;
         boolean clawArmServoIsOpen = false;
 
         boolean debugInfo = true;
@@ -46,6 +50,8 @@ public class TeleOpFTCBasic extends LinearOpMode {
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
         FrontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
+
+        StarMotors = hardwareMap.get(DcMotor.class, "StarMotors");
 
 
 
@@ -58,15 +64,20 @@ public class TeleOpFTCBasic extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-            BackLeft.setDirection(DcMotor.Direction.REVERSE);
-            BackRight.setDirection(DcMotor.Direction.REVERSE);
-            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-            FrontRight.setDirection(DcMotor.Direction.FORWARD);
+            BackLeft.setDirection(DcMotor.Direction.FORWARD);
+            BackRight.setDirection(DcMotor.Direction.FORWARD);
+            FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+
+            StarMotors.setDirection(DcMotor.Direction.FORWARD);
+
 
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            StarMotors.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             while (opModeIsActive()) {
                 telemetry.update();
@@ -176,23 +187,14 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                 if (gamepad2.y) {
                 } else if (gamepad2.b) {
-                    if(!viperSlideIsUp) {
-                        //Functions.viperSlideMove(this, hardwareMap, telemetry, 110, 0.25, testMode);
-                        viperSlideIsUp = true;
-                    }
                 } else if (gamepad2.x) {
                 } else if (gamepad2.a) {
-                    if (viperSlideIsUp) {
-                        //Functions.viperSlideMove(this, hardwareMap, telemetry, -110, 0.25, testMode);
-                        viperSlideIsUp = false;
-                    }
                 } else {
-                    //ViperSlideMotor.setPower(0);
                 }
                 if (gamepad2.left_bumper) {
-
+                    StarMotors.setPower(0);
                 } else if (gamepad2.right_bumper) {
-
+                    StarMotors.setPower(0.8);
                 }
 
 
