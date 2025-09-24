@@ -22,27 +22,27 @@ public class Constants {
             .rightRearMotorName("BackRight")
             .leftFrontMotorName("FrontLeft")
             .leftRearMotorName("BackLeft")
-            .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .leftFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
-            .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
+            .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE);
 
-    /*public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
-            .forwardTicksToInches(.001989436789)
+    public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
+            .forwardTicksToInches(.001989436789)//.001989436789
             .strafeTicksToInches(.001989436789)
             .turnTicksToInches(.001989436789)
-            .leftPodY(0)
-            .rightPodY(0)
-            .strafePodX(0)
-            .rightEncoder_HardwareMapName("FrontRight")
-            .strafeEncoder_HardwareMapName("BackRight")
-            .leftEncoder_HardwareMapName("BackLeft")
-            .leftEncoderDirection(Encoder.FORWARD)
+            .leftPodY(0.5)
+            .rightPodY(-0.5)
+            .strafePodX(0.125)
+            .rightEncoder_HardwareMapName("BackLeft")
+            .strafeEncoder_HardwareMapName("FrontLeft")
+            .leftEncoder_HardwareMapName("FrontRight")
+            .leftEncoderDirection(Encoder.REVERSE)
             .rightEncoderDirection(Encoder.FORWARD)
             .strafeEncoderDirection(Encoder.FORWARD);
-*/
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
+    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+/*
     public static DriveEncoderConstants localizerConstants = new DriveEncoderConstants()
             .rightFrontMotorName("FrontRight")
             .rightRearMotorName("BackRight")
@@ -53,15 +53,18 @@ public class Constants {
             .rightFrontEncoderDirection(Encoder.REVERSE)
             .rightRearEncoderDirection(Encoder.FORWARD)
             .robotWidth(16.5)
-            .robotLength(13.5)
-            .forwardTicksToInches(0.00781099737);
+            .robotLength(13.5);
+
+            .forwardTicksToInches(0.0116356127)
+            .strafeTicksToInches(0.00714149412279529)
+            .turnTicksToInches(0.00543443833);*/
 
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .pathConstraints(pathConstraints)
-                //.threeWheelLocalizer(localizerConstants)
-                .driveEncoderLocalizer(localizerConstants)
+                .threeWheelLocalizer(localizerConstants)
+                //.driveEncoderLocalizer(localizerConstants)
                 .mecanumDrivetrain(driveConstants)
                 .build();
     }

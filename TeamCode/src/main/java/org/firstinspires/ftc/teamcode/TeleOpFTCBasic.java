@@ -51,7 +51,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
         FrontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
-        StarMotors = hardwareMap.get(DcMotor.class, "StarMotors");
+        //StarMotors = hardwareMap.get(DcMotor.class, "StarMotors");
 
 
 
@@ -69,7 +69,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
             FrontLeft.setDirection(DcMotor.Direction.REVERSE);
             FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
-            StarMotors.setDirection(DcMotor.Direction.FORWARD);
+            //StarMotors.setDirection(DcMotor.Direction.FORWARD);
 
 
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -77,7 +77,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
             FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            StarMotors.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            //StarMotors.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             while (opModeIsActive()) {
                 telemetry.update();
