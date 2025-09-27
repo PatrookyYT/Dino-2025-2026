@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.ServoController;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "TestAuto4")
 public class TestAuto4 extends LinearOpMode {
@@ -12,6 +13,8 @@ public class TestAuto4 extends LinearOpMode {
     private DcMotor BackRight;
     private DcMotor FrontLeft;
     private DcMotor BackLeft;
+
+    private Servo servo;
 
 
     private ServoController ControlHub_ServoController;
@@ -27,6 +30,11 @@ public class TestAuto4 extends LinearOpMode {
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
         double wheel_Speed = 1;
+
+        double Servo_Stop;
+        double Servo_Intake;
+        double Servo_Outtake;
+
         float verticalGp1_left;
         float horizontalGp1_left;
         float verticalGp1_right;

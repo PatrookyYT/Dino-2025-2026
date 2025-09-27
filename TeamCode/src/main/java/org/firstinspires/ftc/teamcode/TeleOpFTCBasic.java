@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 
 @TeleOp(name = "TeleOpFTCBasic (Use For Driving)")
@@ -14,7 +15,8 @@ public class TeleOpFTCBasic extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor BackLeft;
 
-    private DcMotor StarMotors;
+
+    private Servo IntakeServo;
 
 
     private ServoController ControlHub_ServoController;
@@ -30,6 +32,11 @@ public class TeleOpFTCBasic extends LinearOpMode {
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
         double wheel_Speed = 1;
+
+        double Servo_Stop = 0.5;
+        double Servo_Intake = 1;
+        double Servo_Outtake = 0;
+
         float verticalGp1_left;
         float horizontalGp1_left;
         float verticalGp1_right;
@@ -51,8 +58,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
         FrontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
-        //StarMotors = hardwareMap.get(DcMotor.class, "StarMotors");
-
+        IntakeServo = hardwareMap.get(Servo.class, "IntakeServo");
 
 
         ControlHub_ServoController = hardwareMap.get(ServoController.class, "Control Hub");
@@ -167,12 +173,16 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                 if (gamepad1.y) {
                 } else if (gamepad1.b) {
+                    IntakeServo.setPosition(Servo_Stop);
                 } else if (gamepad1.x) {
                 } else if (gamepad1.a) {
                 }
 
                 if (gamepad1.left_bumper) {
-                } else if (gamepad1.right_bumper) {
+                    IntakeServo.setPosition(Servo_Outtake);
+                }
+                if (gamepad1.right_bumper) {
+                    IntakeServo.setPosition(Servo_Intake);
                 }
 
                 if (verticalGp2_right < 0) {
@@ -192,9 +202,8 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 } else {
                 }
                 if (gamepad2.left_bumper) {
-                    StarMotors.setPower(0);
-                } else if (gamepad2.right_bumper) {
-                    StarMotors.setPower(0.8);
+                }
+                if (gamepad2.right_bumper) {
                 }
 
 
