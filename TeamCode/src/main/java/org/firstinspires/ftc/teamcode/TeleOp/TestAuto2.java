@@ -1,4 +1,4 @@
-    package org.firstinspires.ftc.teamcode;
+    package org.firstinspires.ftc.teamcode.TeleOp;
 
     //Importing
 
@@ -7,6 +7,9 @@
     import com.qualcomm.robotcore.hardware.CRServo;
     import com.qualcomm.robotcore.hardware.ServoController;
     import com.qualcomm.robotcore.util.ElapsedTime;
+
+    import org.firstinspires.ftc.teamcode.Distance;
+    import org.firstinspires.ftc.teamcode.Functions;
 
     //##################################
     //#                                #

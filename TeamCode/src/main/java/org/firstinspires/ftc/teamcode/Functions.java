@@ -4,10 +4,12 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
@@ -450,6 +452,50 @@ public class Functions {
         LeftServo.setPower(Arm_target);
         RightServo.setPower(-Arm_target);
     }*/
+
+    public static void dropArtifacts(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, com.qualcomm.robotcore.hardware.ServoController ControlHub_ServoController, com.qualcomm.robotcore.hardware.ServoController ExpansionHub2_ServoController, double speed, boolean testMode) {
+
+        //Define Objects
+        Servo DropperServo = null;
+        DcMotor WeeeMotor = null;
+
+        //Set objects
+        DropperServo = hardwareMap.get(Servo.class, "FrontArmServo");
+        WeeeMotor = hardwareMap.get(DcMotor.class, "WeeeMotor");
+
+        WeeeMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        WeeeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Disable pwm
+        ControlHub_ServoController.pwmDisable();
+
+        // Start spinning Motor
+        Functions.addComment("Starting up Motor...", opMode, telemetry, testMode);
+
+        DropperServo.setPosition(0.5);
+        WeeeMotor.setPower(speed);
+
+        Functions.pause(3, opMode);
+
+        // Drop first Artifact
+        Functions.addComment("Dropping Artifact #1", opMode, telemetry, testMode);
+
+        DropperServo.setPosition(0.8);
+        Functions.pause(0.5, opMode);
+        DropperServo.setPosition(0.5);
+
+        // Wait
+        Functions.addComment("Waiting...", opMode, telemetry, testMode);
+        Functions.pause(3, opMode);
+
+        // Drop second Artifact
+        Functions.addComment("Dropping Artifact #2", opMode, telemetry, testMode);
+
+        DropperServo.setPosition(0.2);
+        Functions.pause(1, opMode);
+        DropperServo.setPosition(0.5);
+    }
 
 
     public static void turn(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, String direction, double Speed, boolean testMode) {
@@ -1047,4 +1093,12 @@ public class Functions {
         }
 
  */
+    public static void addComment( String comment, com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, boolean testMode) {
+        if(!testMode) {
+            return;
+        }
+
+        telemetry.addLine(comment);
+        telemetry.update();
+    }
 }

@@ -1,9 +1,11 @@
-    package org.firstinspires.ftc.teamcode;
+    package org.firstinspires.ftc.teamcode.IntoTheDeep2025;
 
     import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
     import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
     import com.qualcomm.robotcore.hardware.ServoController;
     import com.qualcomm.robotcore.util.ElapsedTime;
+
+    import org.firstinspires.ftc.teamcode.Functions;
 
     @Autonomous(name = "IntoTheDeepAuto3SimplePark")
     public class ITDAutoLeft3 extends LinearOpMode {

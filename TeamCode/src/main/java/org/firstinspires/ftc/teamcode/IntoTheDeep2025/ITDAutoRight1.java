@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.IntoTheDeep2025;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,8 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "ITD AutoLeft6")
-public class ITDAutoLeft6 extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.Functions;
+
+@Autonomous(name = "ITD AutoRight1 (High-bar)")
+public class ITDAutoRight1 extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public ServoController ControlHub_ServoController;
@@ -57,65 +59,49 @@ public class ITDAutoLeft6 extends LinearOpMode {
 
             ClawArmServo.setPower(1);
 
-            Functions.drive(this, hardwareMap, telemetry, -10, 10, 0.55, 10, -10, testMode);
+            Functions.drive(this, hardwareMap, telemetry, 10, -10, 0.55, -10, 10, testMode);
 
 
-            Functions.turn(this, hardwareMap, telemetry, "Right", 0.75, testMode);
-            Functions.pause(0.25, this);
-
-//10.78
-            ClawArmServo.setPower(1);
-
-//10.78
-            Functions.drive(this, hardwareMap, telemetry, 13.5, 13.5, 0.45, 13.5, 13.5, testMode);
-
-            //Functions.driveUntilDistance(opMode, hardwareMap, telemetry, 11.1, 47, Speed, testMode);
-
-            Functions.frontArmMove(this, hardwareMap, telemetry, 16, 0.65, 1.25, testMode);
-            Functions.drive(this, hardwareMap, telemetry, -4.5, -4.5, 0.135, -4.5, -4.5, testMode);
-            Functions.frontArmMove(this, hardwareMap, telemetry, 16, 0.65, 0.25, testMode);
-            ClawArmServo.setPower(-1);
-            Functions.pause(0.25, this);
-            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
-
-            Functions.frontArmMove(this, hardwareMap, telemetry, -12, 0.3, 1.2, testMode);
-            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
-            Functions.reset(this, hardwareMap, telemetry, testMode);
-
-
-            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
-            ClawArmServo.setPower(-1);
             Functions.turn(this, hardwareMap, telemetry, "Left", 0.75, testMode);
-            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
-
-            Functions.drive(this, hardwareMap, telemetry, 24.5, -24.5, 0.6, -24.5, 24.5, testMode);
             Functions.pause(0.25, this);
 
-            Functions.drive(this, hardwareMap, telemetry, -10, 10, 0.6, 10, -10, testMode);
+//10.78
+            Functions.hangSpec1(this, hardwareMap, telemetry, 0.45, testMode);
+
+
+            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
+            ClawArmServo.setPower(-1);
+            Functions.turn(this, hardwareMap, telemetry, "Right", 0.75, testMode);
+            Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
+
+            Functions.drive(this, hardwareMap, telemetry, -24.5, 24.5, 0.6, 24.5, -24.5, testMode);
+            Functions.pause(0.25, this);
+
+            Functions.drive(this, hardwareMap, telemetry, 10, -10, 0.6, -10, 10, testMode);
             Functions.frontArmStop(this, hardwareMap, telemetry, testMode);
 
             Functions.drive(this, hardwareMap, telemetry, 29.1, 29.1, 0.7, 29.1, 29.1, testMode);
-            Functions.turn(this, hardwareMap, telemetry, "Left", 0.75, testMode);
+            Functions.turn(this, hardwareMap, telemetry, "Right", 0.75, testMode);
             Functions.pause(0.25, this);
 
             Functions.drive(this, hardwareMap, telemetry, -40, -40, 0.6, -40, -40, testMode);
             Functions.pause(0.25, this);
 
-            Functions.drive(this, hardwareMap, telemetry, -10, 10, 0.57, 10, -10, testMode);
+            Functions.drive(this, hardwareMap, telemetry, 10, -10, 0.57, -10, 10, testMode);
             Functions.pause(0.25, this);
             Functions.drive(this, hardwareMap, telemetry, 47.5, 47.5, 0.75, 47.5, 47.5, testMode);
             Functions.pause(0.25, this);
             Functions.drive(this, hardwareMap, telemetry, -47.5, -47.5, 0.75, -47.5, -47.5, testMode);
             Functions.pause(0.25, this);
 
-            Functions.drive(this, hardwareMap, telemetry, -16, 16, 0.57, 16, -16, testMode);
+            Functions.drive(this, hardwareMap, telemetry, 16, -16, 0.57, -16, 16, testMode);
             Functions.pause(0.25, this);
             Functions.drive(this, hardwareMap, telemetry, 48.5, 48.5, 0.75, 48.5, 48.5, testMode);
             Functions.pause(0.25, this);
             Functions.drive(this, hardwareMap, telemetry, -48.5, -48.5, 0.75, -48.5, -48.5, testMode);
             Functions.pause(0.25, this);
 
-            Functions.drive(this, hardwareMap, telemetry, -10, 10, 0.57, 10, -10, testMode);
+            Functions.drive(this, hardwareMap, telemetry, 10, -10, 0.57, -10, 10, testMode);
             Functions.pause(0.25, this);
             Functions.drive(this, hardwareMap, telemetry, 48.5, 48.5, 0.75, 48.5, 48.5, testMode);
             Functions.pause(0.25, this);

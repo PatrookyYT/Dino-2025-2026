@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -65,7 +66,7 @@ public class TestAuto4 extends LinearOpMode {
         if (opModeIsActive()) {
 
 
-            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+            FrontRight.setDirection(DcMotor.Direction.FORWARD);
 
 
             FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -117,7 +118,16 @@ public class TestAuto4 extends LinearOpMode {
                 //
                 // Used for Mecanum wheel movement
                 //
-                FrontRight.setPower((horizontalGp1_left - verticalGp1_left) * wheel_Speed);
+
+                if (gamepad1.x) {
+                    FrontRight.setPower(0);
+                } else if (gamepad1.y) {
+                    FrontRight.setPower(0.25);
+                } else if (gamepad1.b) {
+                    FrontRight.setPower(0.5);
+                } else if (gamepad1.a) {
+                    FrontRight.setPower(0.75);
+                }
 
             }
         }
