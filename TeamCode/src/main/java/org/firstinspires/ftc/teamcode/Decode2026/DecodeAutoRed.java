@@ -2,18 +2,23 @@ package org.firstinspires.ftc.teamcode.Decode2026;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@Autonomous(name = "ITD AutoRight1 (High-bar)")
-public class DecodeAuto1 extends LinearOpMode {
+@Autonomous(name = "Decode Auto (Red side)")
+public class DecodeAutoRed extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public ServoController ControlHub_ServoController;
+    private ServoController ExpansionHub_ServoController;
+
+    double wheel_Speed = 0.725;
+
+    double Servo_Stop = 0.5;
+    double Servo_Right = 0.65;
+    double Servo_Left = 0.35;
 
     @Override
     public void runOpMode() {
@@ -37,6 +42,9 @@ public class DecodeAuto1 extends LinearOpMode {
         //MOTORS DEFINED IN THE DRIVER HUB
         ControlHub_ServoController = hardwareMap.get(ServoController.class, "Control Hub");
 
+        ExpansionHub_ServoController = hardwareMap.get(ServoController.class, "Expansion Hub 2");
+
+
         //Disable pwm
         ControlHub_ServoController.pwmDisable();
 
@@ -48,11 +56,19 @@ public class DecodeAuto1 extends LinearOpMode {
         {
             // Drive to pixel
 
-            Functions.drive(this, hardwareMap, telemetry, 48, 48, 0.55, 48, 48, testMode);
+            Functions.drive(this, hardwareMap, telemetry, -18, 18, 0.55, 18, -18, testMode);
+
+
+            Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, wheel_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
+
+            Functions.turn(this, hardwareMap, telemetry, "Half-Right", 0.5, testMode);
+
+
+            Functions.drive(this, hardwareMap, telemetry, -32.482, -32.482, 0.55, -32, -32, testMode);
 
             Functions.pause(0.25, this);
 
-            Functions.drive(this, hardwareMap, telemetry, -48, -48, 0.55, -48, -48, testMode);
+            Functions.drive(this, hardwareMap, telemetry, -32.482, -32, 0.55, -32, -32.482, testMode);
 
         }
     }

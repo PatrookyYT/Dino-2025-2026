@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TeleOpFTCBasic (Use For Driving)")
+@TeleOp(name = "TeleOpFTCBasic")
 public class TeleOpFTCBasic extends LinearOpMode {
 
     private DcMotor FrontRight;
@@ -18,6 +17,8 @@ public class TeleOpFTCBasic extends LinearOpMode {
     private DcMotor BackLeft;
 
     private DcMotor WeeeMotor;
+
+    private DcMotor IntakeMotor;
 
 
     private Servo DropperServo;
@@ -36,11 +37,11 @@ public class TeleOpFTCBasic extends LinearOpMode {
         double halfSpeed = 0.5;
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
-        double wheel_Speed = 1;
+        double wheel_Speed = 0.725;
 
         double Servo_Stop = 0.5;
-        double Servo_Intake = 0.8;
-        double Servo_Outtake = 0.2;
+        double Servo_Right = 0.65;
+        double Servo_Left = 0.35;
 
         float verticalGp1_left;
         float horizontalGp1_left;
@@ -65,7 +66,9 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
         WeeeMotor = hardwareMap.get(DcMotor.class, "WeeeMotor");
 
-        DropperServo = hardwareMap.get(Servo.class, "Dropper");
+        IntakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
+
+        DropperServo = hardwareMap.get(Servo.class, "DropperServo");
 
 
         ControlHub_ServoController = hardwareMap.get(ServoController.class, "Control Hub");
@@ -83,7 +86,9 @@ public class TeleOpFTCBasic extends LinearOpMode {
             FrontLeft.setDirection(DcMotor.Direction.REVERSE);
             FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
-            WeeeMotor.setDirection(DcMotor.Direction.FORWARD);
+            WeeeMotor.setDirection(DcMotor.Direction.REVERSE);
+
+            WeeeMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -148,6 +153,9 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 FrontLeft.setPower((horizontalGp1_left + verticalGp1_left) * wheel_Speed);
                 FrontRight.setPower((horizontalGp1_left - verticalGp1_left) * wheel_Speed);
 
+                IntakeMotor.setPower(verticalGp1_right);
+
+                WeeeMotor.setPower(verticalGp2_right);
 
 
                 if (gamepad1.dpad_left) {
@@ -183,9 +191,9 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 }
 
                 if (gamepad1.y) {
-                    WeeeMotor.setPower(0.75);
+                    WeeeMotor.setPower(wheel_Speed);
                 } else if (gamepad1.b) {
-                    Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, 0.75, testMode);
+                    Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, wheel_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
                 } else if (gamepad1.x) {
                     WeeeMotor.setPower(0);
                 } else if (gamepad1.a) {
@@ -193,10 +201,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 }
 
                 if (gamepad1.left_bumper) {
-                    DropperServo.setPosition(Servo_Outtake);
+                    DropperServo.setPosition(Servo_Left);
                 }
                 if (gamepad1.right_bumper) {
-                    DropperServo.setPosition(Servo_Intake);
+                    DropperServo.setPosition(Servo_Right);
                 }
 
                 if (verticalGp2_right < 0) {
@@ -230,6 +238,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                     telemetry.addLine("\nServos:");
                     telemetry.addData("DropperServo", DropperServo.getPosition());
+
+                    telemetry.addLine("\nLauncher:");
+                    telemetry.addData("WeeeMotor", WeeeMotor.getPower());
+
 
                     telemetry.addLine("\nGamePad1:");
                     telemetry.addData("VerticalGp1_Left", verticalGp1_left);
@@ -268,7 +280,8 @@ public class TeleOpFTCBasic extends LinearOpMode {
                     telemetry.addData("BackRight", BackRight.getPortNumber());
                     telemetry.addData("FrontLeft", FrontLeft.getPortNumber());
                     telemetry.addData("FrontRight", FrontRight.getPortNumber());
-                    telemetry.addData("DropperServo", DropperServo.getPosition());
+                    telemetry.addData("DropperServo", DropperServo.getPortNumber());
+                    telemetry.addData("WeeeMotor", WeeeMotor.getPortNumber());
                 }
             }
         }

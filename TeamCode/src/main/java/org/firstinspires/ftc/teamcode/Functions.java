@@ -58,10 +58,11 @@ public class Functions {
         FrontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+
 
 
         //0 Bl
@@ -453,17 +454,17 @@ public class Functions {
         RightServo.setPower(-Arm_target);
     }*/
 
-    public static void dropArtifacts(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, com.qualcomm.robotcore.hardware.ServoController ControlHub_ServoController, com.qualcomm.robotcore.hardware.ServoController ExpansionHub2_ServoController, double speed, boolean testMode) {
+    public static void dropArtifacts(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, com.qualcomm.robotcore.hardware.ServoController ControlHub_ServoController, com.qualcomm.robotcore.hardware.ServoController ExpansionHub2_ServoController, double speed, double defualtPos, double leftPos, double rightPos, boolean testMode) {
 
         //Define Objects
         Servo DropperServo = null;
         DcMotor WeeeMotor = null;
 
         //Set objects
-        DropperServo = hardwareMap.get(Servo.class, "FrontArmServo");
+        DropperServo = hardwareMap.get(Servo.class, "DropperServo");
         WeeeMotor = hardwareMap.get(DcMotor.class, "WeeeMotor");
 
-        WeeeMotor.setDirection(DcMotor.Direction.FORWARD);
+        WeeeMotor.setDirection(DcMotor.Direction.REVERSE);
 
         WeeeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -473,7 +474,7 @@ public class Functions {
         // Start spinning Motor
         Functions.addComment("Starting up Motor...", opMode, telemetry, testMode);
 
-        DropperServo.setPosition(0.5);
+        DropperServo.setPosition(defualtPos);
         WeeeMotor.setPower(speed);
 
         Functions.pause(3, opMode);
@@ -481,9 +482,9 @@ public class Functions {
         // Drop first Artifact
         Functions.addComment("Dropping Artifact #1", opMode, telemetry, testMode);
 
-        DropperServo.setPosition(0.8);
+        DropperServo.setPosition(rightPos);
         Functions.pause(0.5, opMode);
-        DropperServo.setPosition(0.5);
+        DropperServo.setPosition(defualtPos);
 
         // Wait
         Functions.addComment("Waiting...", opMode, telemetry, testMode);
@@ -492,9 +493,9 @@ public class Functions {
         // Drop second Artifact
         Functions.addComment("Dropping Artifact #2", opMode, telemetry, testMode);
 
-        DropperServo.setPosition(0.2);
+        DropperServo.setPosition(leftPos);
         Functions.pause(1, opMode);
-        DropperServo.setPosition(0.5);
+        DropperServo.setPosition(defualtPos);
     }
 
 
@@ -514,10 +515,10 @@ public class Functions {
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
 
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -526,7 +527,19 @@ public class Functions {
 
         int distance = 1300;
 
-        if (direction == "Right") {
+        if(direction == "Half-Right") {
+            distance /= 2;
+            BackLeft.setTargetPosition(distance);
+            BackRight.setTargetPosition(-distance);
+            FrontLeft.setTargetPosition(distance);
+            FrontRight.setTargetPosition(-distance);
+        } else if (direction == "Half-Left") {
+            distance /= 2;
+            BackLeft.setTargetPosition(-distance);
+            BackRight.setTargetPosition(distance);
+            FrontLeft.setTargetPosition(-distance);
+            FrontRight.setTargetPosition(distance);
+        } else if (direction == "Right") {
             BackLeft.setTargetPosition(distance);
             BackRight.setTargetPosition(-distance);
             FrontLeft.setTargetPosition(distance);
