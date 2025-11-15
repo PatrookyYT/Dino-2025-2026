@@ -37,10 +37,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
         double halfSpeed = 0.5;
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
-        double wheel_Speed = 0.725;
+        double wheel_Speed = 0.675;
 
-        double Servo_Stop = 0.5;
-        double Servo_Right = 0.65;
+        double Servo_Stop = 0.55;
+        double Servo_Right = 0.75;
         double Servo_Left = 0.35;
 
         float verticalGp1_left;
@@ -155,7 +155,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                 IntakeMotor.setPower(verticalGp1_right);
 
-                WeeeMotor.setPower(verticalGp2_right);
+                if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
 
 
                 if (gamepad1.dpad_left) {
@@ -213,14 +213,21 @@ public class TeleOpFTCBasic extends LinearOpMode {
                     // Gamepad 2 commands end+++
                 }
                 if (gamepad2.dpad_left) {
-                } else if (gamepad2.dpad_right) {
+                    DropperServo.setPosition(Servo_Left);
+                }
+                if (gamepad2.dpad_right) {
+                    DropperServo.setPosition(Servo_Right);
                 }
 
 
                 if (gamepad2.y) {
+                    WeeeMotor.setPower(wheel_Speed);
                 } else if (gamepad2.b) {
+                    //Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, wheel_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
                 } else if (gamepad2.x) {
+                    WeeeMotor.setPower(0);
                 } else if (gamepad2.a) {
+                    DropperServo.setPosition(Servo_Stop);
                 } else {
                 }
                 if (gamepad2.left_bumper) {

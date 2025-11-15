@@ -59,8 +59,8 @@ public class Functions {
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
         BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -483,7 +483,7 @@ public class Functions {
         Functions.addComment("Dropping Artifact #1", opMode, telemetry, testMode);
 
         DropperServo.setPosition(rightPos);
-        Functions.pause(0.5, opMode);
+        Functions.pause(0.375, opMode);
         DropperServo.setPosition(defualtPos);
 
         // Wait
@@ -494,7 +494,7 @@ public class Functions {
         Functions.addComment("Dropping Artifact #2", opMode, telemetry, testMode);
 
         DropperServo.setPosition(leftPos);
-        Functions.pause(1, opMode);
+        Functions.pause(2, opMode);
         DropperServo.setPosition(defualtPos);
     }
 
@@ -516,8 +516,8 @@ public class Functions {
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
 
         BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

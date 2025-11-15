@@ -14,10 +14,10 @@ public class DecodeAutoRed extends LinearOpMode {
     public ServoController ControlHub_ServoController;
     private ServoController ExpansionHub_ServoController;
 
-    double wheel_Speed = 0.725;
+    double wheel_Speed = 0.675;
 
-    double Servo_Stop = 0.5;
-    double Servo_Right = 0.65;
+    double Servo_Stop = 0.55;
+    double Servo_Right = 0.75;
     double Servo_Left = 0.35;
 
     @Override
@@ -55,21 +55,14 @@ public class DecodeAutoRed extends LinearOpMode {
         if(Running)
         {
             // Drive to pixel
-
-            Functions.drive(this, hardwareMap, telemetry, -18, 18, 0.55, 18, -18, testMode);
-
+            Functions.drive(this, hardwareMap, telemetry, 23, 23, 0.55, 23, 23, testMode);
 
             Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, wheel_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
 
-            Functions.turn(this, hardwareMap, telemetry, "Half-Right", 0.5, testMode);
+            Functions.turn(this, hardwareMap, telemetry, "Half-Left", 0.5, testMode);
 
 
-            Functions.drive(this, hardwareMap, telemetry, -32.482, -32.482, 0.55, -32, -32, testMode);
-
-            Functions.pause(0.25, this);
-
-            Functions.drive(this, hardwareMap, telemetry, -32.482, -32, 0.55, -32, -32.482, testMode);
-
+            Functions.drive(this, hardwareMap, telemetry, 32.482, 32.482, 0.55, 32, 32, testMode);
         }
     }
 
