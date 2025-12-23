@@ -24,7 +24,7 @@ android {
     sourceSets {
         main {
             java {
-                exclude 'org/firstinspires/ftc/teamcode/IntoTheDeep2025**'
+                exclude 'org/firstinspires/ftc/teamcode/IntoTheDeep2025**', 'org/firstinspires/ftc/teamcode/TeleOpOld**', 'org/firstinspires/ftc/teamcode/CenterStage20232024**'
             }
         }
     }

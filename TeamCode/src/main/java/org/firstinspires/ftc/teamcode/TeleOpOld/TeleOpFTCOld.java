@@ -8,8 +8,30 @@ import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
+//############################################
+//#                                          #
+//# Made by Coder Patrick "Ricky" Adams (16) #
+//#  for the 2025-2026 FTC season, Decode.   #
+//#                                          #
+//#     Teammates Madelyn Brock (14),        #
+//#           Kira Denicker (16)             #
+//#         John Valenzuela (16)             #
+//#          Ezmei Dimaano (16)              #
+//#         and Kaeya Patel (12)             #
+//#         Use this as a                    #
+//#      basis for any code you need         #
+//#          for future events.              #
+//#                                          #
+//#       -Team Dinomite 8472 12/23/2025     #
+//#                                          #
+//############################################
+
+
+//*** THIS CODE WILL NOT BE BUILT ON CURRENT GRADLE SETTINGS!!! REMOVE "EXCLUDE: [Directory] IN build.grade (TeamCode) TO ALLOW THIS PROGRAM TO BUILD***
+
+
 @TeleOp(name = "TeleOpFTCold")
-public class TeleOpFTCBasic extends LinearOpMode {
+public class TeleOpFTCOld extends LinearOpMode {
 
     private DcMotor FrontRight;
     private DcMotor BackRight;

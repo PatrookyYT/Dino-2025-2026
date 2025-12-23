@@ -5,6 +5,9 @@
     import com.qualcomm.robotcore.hardware.ServoController;
     import com.qualcomm.robotcore.util.ElapsedTime;
 
+
+    //*** THIS CODE WILL NOT BE BUILT ON CURRENT GRADLE SETTINGS!!! REMOVE "EXCLUDE: [Directory] IN build.grade (TeamCode) TO ALLOW THIS PROGRAM TO BUILD***
+
     @Autonomous(name = "IntoTheDeepAuto4Sub")
     public class IntoTheDeepAuto4 extends LinearOpMode {
         // Declare OpMode members.
