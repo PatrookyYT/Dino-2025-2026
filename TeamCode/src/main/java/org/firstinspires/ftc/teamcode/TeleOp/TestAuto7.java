@@ -5,12 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TeleOpFTCBasic")
-public class TeleOpFTCBasic extends LinearOpMode {
+@TeleOp(name = "TestAuto7")
+public class TestAuto7 extends LinearOpMode {
 
     private DcMotor FrontRight;
     private DcMotor BackRight;
@@ -41,7 +40,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
         double wheel_Speed = 1;
-        double intake_Speed = 0.92; //0.9367
+        double intake_Speed = 0.83; //0.9367
 
         double Servo_Stop = 0.55;
         double Servo_Right = 0.75;
@@ -103,10 +102,6 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
             TheHornet.setDirection(DcMotor.Direction.REVERSE);
 
-            BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -174,8 +169,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                 TheHornet.setPower(horizontalGp1_right);
 
-                if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
+                //if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
 
+
+                WeeeMotor.setPower(intake_Speed);
 
                 if (gamepad1.dpad_left) {
                     // Turns the robot left (Hopefully)
@@ -250,8 +247,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 } else {
                 }
                 if (gamepad2.left_bumper) {
+                    intake_Speed -= 0.01;
                 }
                 if (gamepad2.right_bumper) {
+                    intake_Speed += 0.01;
                 }
 
 

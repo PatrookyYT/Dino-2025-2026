@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
@@ -11,6 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class Functions {
@@ -59,8 +63,8 @@ public class Functions {
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
         BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -70,14 +74,19 @@ public class Functions {
         //2 Br
         //3 Fr
 
+        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         BackLeft.setTargetPosition((int)(BackLeft_target * unitsPerInch));
-        BackRight.setTargetPosition((int)(BackRight_target * unitsPerInch));
-        FrontLeft.setTargetPosition((int)(FrontLeft_target * unitsPerInch));
+        BackRight.setTargetPosition((int)(-BackRight_target * unitsPerInch));
+        FrontLeft.setTargetPosition((int)(-FrontLeft_target * unitsPerInch));
         FrontRight.setTargetPosition((int)(FrontRight_target * unitsPerInch));
 
         BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -482,7 +491,7 @@ public class Functions {
         // Drop first Artifact
         Functions.addComment("Dropping Artifact #1", opMode, telemetry, testMode);
 
-        DropperServo.setPosition(rightPos);
+        DropperServo.setPosition(leftPos);
         Functions.pause(0.375, opMode);
         DropperServo.setPosition(defualtPos);
 
@@ -493,7 +502,7 @@ public class Functions {
         // Drop second Artifact
         Functions.addComment("Dropping Artifact #2", opMode, telemetry, testMode);
 
-        DropperServo.setPosition(leftPos);
+        DropperServo.setPosition(rightPos);
         Functions.pause(2, opMode);
         DropperServo.setPosition(defualtPos);
     }
@@ -516,8 +525,8 @@ public class Functions {
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
 
         BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -530,24 +539,24 @@ public class Functions {
         if(direction == "Half-Right") {
             distance /= 2;
             BackLeft.setTargetPosition(distance);
-            BackRight.setTargetPosition(-distance);
-            FrontLeft.setTargetPosition(distance);
+            BackRight.setTargetPosition(distance);
+            FrontLeft.setTargetPosition(-distance);
             FrontRight.setTargetPosition(-distance);
         } else if (direction == "Half-Left") {
             distance /= 2;
             BackLeft.setTargetPosition(-distance);
-            BackRight.setTargetPosition(distance);
-            FrontLeft.setTargetPosition(-distance);
+            BackRight.setTargetPosition(-distance);
+            FrontLeft.setTargetPosition(distance);
             FrontRight.setTargetPosition(distance);
         } else if (direction == "Right") {
             BackLeft.setTargetPosition(distance);
-            BackRight.setTargetPosition(-distance);
-            FrontLeft.setTargetPosition(distance);
+            BackRight.setTargetPosition(distance);
+            FrontLeft.setTargetPosition(-distance);
             FrontRight.setTargetPosition(-distance);
         } else if (direction == "Left") {
             BackLeft.setTargetPosition(-distance);
-            BackRight.setTargetPosition(distance);
-            FrontLeft.setTargetPosition(-distance);
+            BackRight.setTargetPosition(-distance);
+            FrontLeft.setTargetPosition(distance);
             FrontRight.setTargetPosition(distance);
         }
 
@@ -794,6 +803,108 @@ public class Functions {
 
         Functions.reset(opMode, hardwareMap, telemetry, testMode);
         return;
+    }
+
+    public static String GetColor(LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, boolean testMode) {
+
+        try {
+            ColorSensor colorSensor;
+            colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+
+            int redC = colorSensor.red();
+            int greenC = colorSensor.green();
+            int blueC = colorSensor.blue();
+
+            if (testMode) {
+                telemetry.addData("Red", redC);
+                telemetry.addData("Green", greenC);
+                telemetry.addData("Blue", blueC);
+            }
+
+            if (redC == greenC && greenC == blueC) {
+                return null;
+            }
+
+            if (redC > greenC) {
+                if (redC > blueC) {
+                    return "Red";
+                } else if (redC == blueC) {
+                    return "Red & Blue";
+                }
+            }
+
+            if (greenC > blueC) {
+                if (greenC > redC) {
+                    return "Green";
+                } else if (greenC == redC) {
+                    return "Red & Green";
+                }
+            }
+
+            if (blueC > redC) {
+                if (blueC > greenC) {
+                    return "Blue";
+                } else if (blueC == greenC) {
+                    return "Green & Blue";
+                }
+            }
+        }
+        catch (Error error) {
+            Functions.addComment(error.toString() ,opMode, telemetry, testMode);
+        }
+
+        return null;
+    }
+
+    public static String CheckArtifactColor(LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, boolean testMode) {
+
+        try {
+            ColorSensor colorSensor;
+            colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+
+            int redC = colorSensor.red();
+            int greenC = colorSensor.green();
+            int blueC = colorSensor.blue();
+
+            if (testMode) {
+                telemetry.addData("Red", redC);
+                telemetry.addData("Green", greenC);
+                telemetry.addData("Blue", blueC);
+            }
+
+            if (redC == greenC && greenC == blueC) {
+                return null;
+            }
+
+            if (redC > greenC) {
+                if (redC > blueC) {
+                    return "Red";
+                } else if (redC == blueC) {
+                    return "Red & Blue";
+                }
+            }
+
+            if (greenC > blueC) {
+                if (greenC > redC) {
+                    return "Green";
+                } else if (greenC == redC) {
+                    return "Red & Green";
+                }
+            }
+
+            if (blueC > redC) {
+                if (blueC > greenC) {
+                    return "Blue";
+                } else if (blueC == greenC) {
+                    return "Green & Blue";
+                }
+            }
+        }
+        catch (Error error) {
+            Functions.addComment(error.toString() ,opMode, telemetry, testMode);
+        }
+
+        return null;
     }
 
     public static void reset(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, boolean testMode) {

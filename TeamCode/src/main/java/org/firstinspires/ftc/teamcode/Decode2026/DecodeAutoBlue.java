@@ -14,7 +14,8 @@ public class DecodeAutoBlue extends LinearOpMode {
     public ServoController ControlHub_ServoController;
     private ServoController ExpansionHub_ServoController;
 
-    double wheel_Speed = 0.675;
+    double wheel_Speed = 1;
+    double intake_Speed = 0.92;
 
     double Servo_Stop = 0.55;
     double Servo_Right = 0.75;
@@ -55,10 +56,10 @@ public class DecodeAutoBlue extends LinearOpMode {
         if(Running)
         {
             // Drive to pixel
-
+//64
             Functions.drive(this, hardwareMap, telemetry, 23, 23, 0.55, 23, 23, testMode);
 
-            Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, wheel_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
+            Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, intake_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
 
             Functions.turn(this, hardwareMap, telemetry, "Half-Right", 0.5, testMode);
 

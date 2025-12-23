@@ -1,4 +1,4 @@
-    package org.firstinspires.ftc.teamcode.TeleOp;
+    package org.firstinspires.ftc.teamcode.TeleOpOld;
 
     //Importing
 
@@ -37,7 +37,7 @@
     //Replace ' name = "OpMode3" ' with the name you want
     //to display on control hub, and ' class OpMode3 ' with
     //the name of the file.
-    @TeleOp(name = "TestAuto002")
+    @TeleOp(name = "TestAuto002old")
     public class TestAuto2 extends LinearOpMode {
 
         private String action;

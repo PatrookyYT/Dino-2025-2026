@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOpOld;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TestAuto5")
+@TeleOp(name = "TestAuto5old")
 public class TestAuto5 extends LinearOpMode {
 
     private DcMotor WeeeMotor;

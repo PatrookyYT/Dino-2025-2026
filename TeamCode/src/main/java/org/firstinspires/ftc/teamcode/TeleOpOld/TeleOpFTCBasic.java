@@ -1,15 +1,14 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOpOld;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TeleOpFTCBasic")
+@TeleOp(name = "TeleOpFTCold")
 public class TeleOpFTCBasic extends LinearOpMode {
 
     private DcMotor FrontRight;
@@ -87,10 +86,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-            BackLeft.setDirection(DcMotor.Direction.FORWARD);
-            BackRight.setDirection(DcMotor.Direction.FORWARD);
-            FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+            BackLeft.setDirection(DcMotor.Direction.REVERSE);
+            BackRight.setDirection(DcMotor.Direction.REVERSE);
+            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+            FrontRight.setDirection(DcMotor.Direction.FORWARD);
 
             /*
             BackLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -177,7 +176,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
 
 
-                if (gamepad1.dpad_left) {
+                if (gamepad1.dpad_right) {
                     // Turns the robot left (Hopefully)
                     BackLeft.setPower(-D_Speed);
                     BackRight.setPower(-D_Speed);
@@ -195,7 +194,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
                     BackRight.setPower(D_Speed);
                     FrontLeft.setPower(D_Speed);
                     FrontRight.setPower(-D_Speed);
-                } else if (gamepad1.dpad_right) {
+                } else if (gamepad1.dpad_left) {
                     // Turns the robot right (Hopefully)
                     BackLeft.setPower(D_Speed);
                     BackRight.setPower(D_Speed);

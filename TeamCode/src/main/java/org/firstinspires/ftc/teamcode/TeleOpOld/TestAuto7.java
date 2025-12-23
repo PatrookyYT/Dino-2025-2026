@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOpOld;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TeleOpFTCBasic")
-public class TeleOpFTCBasic extends LinearOpMode {
+@TeleOp(name = "TestAuto7old")
+public class TestAuto7 extends LinearOpMode {
 
     private DcMotor FrontRight;
     private DcMotor BackRight;
@@ -41,7 +40,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
         double arm_SpeedLeft = 0.5;
         double arm_SpeedRight = 0.3;
         double wheel_Speed = 1;
-        double intake_Speed = 0.92; //0.9367
+        double intake_Speed = 0.83; //0.9367
 
         double Servo_Stop = 0.55;
         double Servo_Right = 0.75;
@@ -87,10 +86,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-            BackLeft.setDirection(DcMotor.Direction.FORWARD);
-            BackRight.setDirection(DcMotor.Direction.FORWARD);
-            FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+            BackLeft.setDirection(DcMotor.Direction.REVERSE);
+            BackRight.setDirection(DcMotor.Direction.REVERSE);
+            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+            FrontRight.setDirection(DcMotor.Direction.FORWARD);
 
             /*
             BackLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -103,10 +102,6 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
             TheHornet.setDirection(DcMotor.Direction.REVERSE);
 
-            BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -174,10 +169,12 @@ public class TeleOpFTCBasic extends LinearOpMode {
 
                 TheHornet.setPower(horizontalGp1_right);
 
-                if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
+                //if(verticalGp2_right < -0.2f || verticalGp2_right > 0.2f) {WeeeMotor.setPower(verticalGp2_right);}
 
 
-                if (gamepad1.dpad_left) {
+                WeeeMotor.setPower(intake_Speed);
+
+                if (gamepad1.dpad_right) {
                     // Turns the robot left (Hopefully)
                     BackLeft.setPower(-D_Speed);
                     BackRight.setPower(-D_Speed);
@@ -195,7 +192,7 @@ public class TeleOpFTCBasic extends LinearOpMode {
                     BackRight.setPower(D_Speed);
                     FrontLeft.setPower(D_Speed);
                     FrontRight.setPower(-D_Speed);
-                } else if (gamepad1.dpad_right) {
+                } else if (gamepad1.dpad_left) {
                     // Turns the robot right (Hopefully)
                     BackLeft.setPower(D_Speed);
                     BackRight.setPower(D_Speed);
@@ -250,8 +247,10 @@ public class TeleOpFTCBasic extends LinearOpMode {
                 } else {
                 }
                 if (gamepad2.left_bumper) {
+                    intake_Speed -= 0.01;
                 }
                 if (gamepad2.right_bumper) {
+                    intake_Speed += 0.01;
                 }
 
 
