@@ -13,9 +13,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
 
 public class Functions {
 
@@ -23,22 +30,20 @@ public class Functions {
         ElapsedTime elapsedTime = new ElapsedTime();
 
         while (elapsedTime.seconds() < waitTime) {
-            if(!opMode.opModeIsActive())
-            {
+            if (!opMode.opModeIsActive()) {
                 return;
             }
             //STOP, wait a minute
         }
     }
 
-    public static String formatSeconds(double inputSeconds){
+    public static String formatSeconds(double inputSeconds) {
         double fixedValue = Math.floor(inputSeconds * 10) / 10;
         return String.valueOf(fixedValue);
     }
 
     public static void drive(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, double BackLeft_target, double BackRight_target, double Speed, double FrontLeft_target, double FrontRight_target, boolean testMode) {
-        if(!opMode.opModeIsActive())
-        {
+        if (!opMode.opModeIsActive()) {
             return;
         }
 
@@ -68,7 +73,6 @@ public class Functions {
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
 
 
-
         //0 Bl
         //1 Fl
         //2 Br
@@ -84,10 +88,10 @@ public class Functions {
         FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        BackLeft.setTargetPosition((int)(BackLeft_target * unitsPerInch));
-        BackRight.setTargetPosition((int)(-BackRight_target * unitsPerInch));
-        FrontLeft.setTargetPosition((int)(-FrontLeft_target * unitsPerInch));
-        FrontRight.setTargetPosition((int)(FrontRight_target * unitsPerInch));
+        BackLeft.setTargetPosition((int) (BackLeft_target * unitsPerInch));
+        BackRight.setTargetPosition((int) (-BackRight_target * unitsPerInch));
+        FrontLeft.setTargetPosition((int) (-FrontLeft_target * unitsPerInch));
+        FrontRight.setTargetPosition((int) (FrontRight_target * unitsPerInch));
 
         BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -100,8 +104,7 @@ public class Functions {
         FrontRight.setPower(Speed);
 
         while (opMode.opModeIsActive() && BackLeft.isBusy() && BackRight.isBusy() && FrontLeft.isBusy() && FrontRight.isBusy()) {
-            if (testMode)
-            {
+            if (testMode) {
                 telemetry.addData("bk-left-end", BackLeft.getCurrentPosition() + "," + BackLeft.getPower());
                 telemetry.addData("bk-right-end", BackRight.getCurrentPosition() + "," + BackRight.getPower());
                 telemetry.addData("fwd-left-end", FrontLeft.getCurrentPosition() + "," + FrontLeft.getPower());
@@ -117,8 +120,7 @@ public class Functions {
                 telemetry.update();
             }
 
-            if(!opMode.opModeIsActive())
-            {
+            if (!opMode.opModeIsActive()) {
                 BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -360,8 +362,7 @@ public class Functions {
 
 
     public static void frontArmMove(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, double Arm_target, double Speed, double time, boolean testMode) {
-        if(!opMode.opModeIsActive())
-        {
+        if (!opMode.opModeIsActive()) {
             return;
         }
 
@@ -380,7 +381,7 @@ public class Functions {
 
         FrontArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FrontArmMotor.setTargetPosition((int)(Arm_target * unitsPerInch));
+        FrontArmMotor.setTargetPosition((int) (Arm_target * unitsPerInch));
 
         FrontArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -389,8 +390,7 @@ public class Functions {
         ElapsedTime elapsedTime = new ElapsedTime();
 
         while (opMode.opModeIsActive() && FrontArmMotor.isBusy() && elapsedTime.seconds() < time) {
-            if (testMode)
-            {
+            if (testMode) {
                 telemetry.addData("ArmMotor", FrontArmMotor.getCurrentPosition() + "," + FrontArmMotor.getPower());
                 telemetry.addData("Speed", FrontArmMotor.getPower());
                 telemetry.addData("Pos", FrontArmMotor.getCurrentPosition());
@@ -400,8 +400,7 @@ public class Functions {
                 telemetry.update();
             }
 
-            if(!opMode.opModeIsActive())
-            {
+            if (!opMode.opModeIsActive()) {
                 return;
             }
 
@@ -413,8 +412,7 @@ public class Functions {
     }
 
     public static void frontArmStop(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, boolean testMode) {
-        if(!opMode.opModeIsActive())
-        {
+        if (!opMode.opModeIsActive()) {
             return;
         }
 
@@ -433,7 +431,7 @@ public class Functions {
 
         FrontArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FrontArmMotor.setTargetPosition((int)(1));
+        FrontArmMotor.setTargetPosition((int) (1));
 
         FrontArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -441,27 +439,6 @@ public class Functions {
         return;
     }
 
-/*
-    public static void frontArmMove(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, double Arm_target, boolean testMode) {
-        if (!opMode.opModeIsActive()) {
-            return;
-        }
-        CRServo LeftServo;
-        CRServo RightServo;
-
-        ServoController ControlHub_ServoController;
-
-        ControlHub_ServoController = hardwareMap.get(ServoController.class, "Control Hub");
-        LeftServo = hardwareMap.get(CRServo.class, "LeftArmServo");
-        RightServo = hardwareMap.get(CRServo.class, "RightArmServo");
-
-
-        //Disable pwm
-        ControlHub_ServoController.pwmDisable();
-
-        LeftServo.setPower(Arm_target);
-        RightServo.setPower(-Arm_target);
-    }*/
 
     public static void dropArtifacts(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, com.qualcomm.robotcore.hardware.ServoController ControlHub_ServoController, com.qualcomm.robotcore.hardware.ServoController ExpansionHub2_ServoController, double speed, double defualtPos, double leftPos, double rightPos, boolean testMode) {
 
@@ -508,6 +485,102 @@ public class Functions {
     }
 
 
+    public static void launchArtifacts(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, com.qualcomm.robotcore.hardware.ServoController ControlHub_ServoController, com.qualcomm.robotcore.hardware.ServoController ExpansionHub2_ServoController, double speed, double KServo_Stop, double KServo_UpPos, float cDistance_Full, float carousel_Speed, boolean testMode) {
+
+        //Define Objects
+        Servo KickerServo = null;
+        DcMotor LauncherMotor = null;
+
+        //Set objects
+        KickerServo = hardwareMap.get(Servo.class, "KickerServo");
+        LauncherMotor = hardwareMap.get(DcMotor.class, "LauncherMotor");
+
+        LauncherMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        LauncherMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Disable pwm
+        ControlHub_ServoController.pwmDisable();
+
+        // Start spinning Motor
+        Functions.addComment("Starting up Motor...", opMode, telemetry, testMode);
+
+        KickerServo.setPosition(KServo_Stop);
+        LauncherMotor.setPower(speed);
+
+        Functions.pause(3, opMode);
+
+        // Drop first Artifact
+        Functions.addComment("Dropping Artifact #1", opMode, telemetry, testMode);
+
+        KickerServo.setPosition(KServo_UpPos);
+        Functions.pause(1, opMode);
+        KickerServo.setPosition(KServo_Stop);
+
+        // Wait
+        Functions.addComment("Waiting...", opMode, telemetry, testMode);
+        Functions.moveCarousel(opMode, hardwareMap, telemetry, cDistance_Full, carousel_Speed, testMode);
+
+        // Drop second Artifact
+        Functions.addComment("Dropping Artifact #2", opMode, telemetry, testMode);
+
+        KickerServo.setPosition(KServo_UpPos);
+        Functions.pause(1, opMode);
+        KickerServo.setPosition(KServo_Stop);
+
+        // Wait
+        Functions.addComment("Waiting...", opMode, telemetry, testMode);
+        Functions.moveCarousel(opMode, hardwareMap, telemetry, cDistance_Full, carousel_Speed, testMode);
+
+        // Drop third Artifact
+        Functions.addComment("Dropping Artifact #3", opMode, telemetry, testMode);
+
+        KickerServo.setPosition(KServo_UpPos);
+        Functions.pause(1, opMode);
+        KickerServo.setPosition(KServo_Stop);
+
+        // Stop
+
+        LauncherMotor.setPower(0);
+
+    }
+
+    public static void moveCarousel(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, double cDistance_Full, double carousel_Speed, boolean testMode) {
+
+        DcMotor CarouselMotor = null;
+
+        CarouselMotor = hardwareMap.get(DcMotor.class, "CarouselMotor");
+
+        CarouselMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        CarouselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        CarouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        CarouselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        CarouselMotor.setTargetPosition((int)(cDistance_Full));
+
+        CarouselMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        CarouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        CarouselMotor.setPower(carousel_Speed);
+
+        while (opMode.opModeIsActive() && CarouselMotor.isBusy())
+        {
+            telemetry.addData("Motor:", CarouselMotor.getDeviceName());
+            telemetry.addData("Speedy:", CarouselMotor.getPower() + String.valueOf(carousel_Speed));
+            telemetry.addData("Distance:", CarouselMotor.getCurrentPosition());
+            telemetry.addData("Target:", CarouselMotor.getTargetPosition());
+            telemetry.addData("%:", (CarouselMotor.getCurrentPosition()/(CarouselMotor.getTargetPosition()+0.0000001)));
+            telemetry.addData("IsBusy:", CarouselMotor.isBusy());
+            telemetry.update();
+        }
+
+        CarouselMotor.setPower(0);
+        CarouselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
     public static void turn(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, String direction, double Speed, boolean testMode) {
         if(!opMode.opModeIsActive())
         {
@@ -553,7 +626,22 @@ public class Functions {
             BackRight.setTargetPosition(distance);
             FrontLeft.setTargetPosition(-distance);
             FrontRight.setTargetPosition(-distance);
+        } else if (direction == "Slight-Left") {
+            distance /= 2;
+            distance = distance - 50;
+            BackLeft.setTargetPosition(-distance);
+            BackRight.setTargetPosition(-distance);
+            FrontLeft.setTargetPosition(distance);
+            FrontRight.setTargetPosition(distance);
+        } else if (direction == "Slight-Right") {
+            distance /= 2;
+            distance = distance + 100;
+            BackLeft.setTargetPosition(distance);
+            BackRight.setTargetPosition(distance);
+            FrontLeft.setTargetPosition(-distance);
+            FrontRight.setTargetPosition(-distance);            
         } else if (direction == "Left") {
+            distance = distance - 200;
             BackLeft.setTargetPosition(-distance);
             BackRight.setTargetPosition(-distance);
             FrontLeft.setTargetPosition(distance);
@@ -569,6 +657,84 @@ public class Functions {
         BackRight.setPower(Speed);
         FrontLeft.setPower(Speed);
         FrontRight.setPower(Speed);
+
+        while (opMode.opModeIsActive() && BackLeft.isBusy() && BackRight.isBusy() && FrontLeft.isBusy() && FrontRight.isBusy())
+        {
+            if (testMode) {
+                telemetry.addData("bk-left-end", BackLeft.getCurrentPosition() + "," + BackLeft.getPower());
+                telemetry.addData("bk-right-end", BackRight.getCurrentPosition() + "," + BackRight.getPower());
+                telemetry.addData("fwd-left-end", FrontLeft.getCurrentPosition() + "," + FrontLeft.getPower());
+                telemetry.addData("fwd-right-end", FrontRight.getCurrentPosition() + "," + FrontRight.getPower());
+                telemetry.addData("bk-left-endBusy", BackLeft.isBusy());
+                telemetry.addData("bk-right-endBusy", BackRight.isBusy());
+                telemetry.addData("fwd-left-endBusy", FrontLeft.isBusy());
+                telemetry.addData("fwd-right-endBusy", FrontRight.isBusy());
+                telemetry.update();
+            }
+
+            if(!opMode.opModeIsActive())
+            {
+                return;
+            }
+
+            opMode.idle();
+        }
+
+        BackLeft.setPower(0);
+        BackRight.setPower(0);
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+
+    }
+
+    public static void turn2(com.qualcomm.robotcore.eventloop.opmode.LinearOpMode opMode, com.qualcomm.robotcore.hardware.HardwareMap hardwareMap, org.firstinspires.ftc.robotcore.external.Telemetry telemetry, Integer distance, String direction, double Speed, boolean testMode) {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
+
+        DcMotor BackLeft;
+        DcMotor FrontLeft;
+        DcMotor FrontRight;
+        DcMotor BackRight;
+
+        BackLeft = hardwareMap.get(DcMotor.class, "BackLeft");
+        FrontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
+        FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
+        BackRight = hardwareMap.get(DcMotor.class, "BackRight");
+
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+
+        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        BackLeft.setPower(Speed);
+        BackRight.setPower(Speed);
+        FrontLeft.setPower(Speed);
+        FrontRight.setPower(Speed);
+
+        if (direction.equals("Left")) {
+            BackLeft.setTargetPosition(-distance);
+            BackRight.setTargetPosition(-distance);
+            FrontLeft.setTargetPosition(distance);
+            FrontRight.setTargetPosition(distance);
+        }
+        else {
+            BackLeft.setTargetPosition(distance);
+            BackRight.setTargetPosition(distance);
+            FrontLeft.setTargetPosition(-distance);
+            FrontRight.setTargetPosition(-distance);
+        }
 
         while (opMode.opModeIsActive() && BackLeft.isBusy() && BackRight.isBusy() && FrontLeft.isBusy() && FrontRight.isBusy())
         {

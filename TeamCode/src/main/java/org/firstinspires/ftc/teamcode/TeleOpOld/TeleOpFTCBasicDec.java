@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOpOld;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Functions;
 
-@TeleOp(name = "TeleOpFTCBasic")
-public class TeleOpFTCBasic extends LinearOpMode {
+@TeleOp(name = "(DO_NOT_USE)TeleOpFTCBasicDec")
+public class TeleOpFTCBasicDec extends LinearOpMode {
 
     private DcMotor FrontRight;
     private DcMotor BackRight;

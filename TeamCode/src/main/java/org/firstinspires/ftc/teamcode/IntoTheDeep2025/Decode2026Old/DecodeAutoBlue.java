@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Decode2026;
+package org.firstinspires.ftc.teamcode.IntoTheDeep2025.Decode2026Old;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -59,7 +59,7 @@ public class DecodeAutoBlue extends LinearOpMode {
 //64
             Functions.drive(this, hardwareMap, telemetry, 23, 23, 0.55, 23, 23, testMode);
 
-            Functions.dropArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, intake_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
+            //Functions.launchArtifacts(this, hardwareMap, telemetry, ControlHub_ServoController, ExpansionHub_ServoController, intake_Speed, Servo_Stop, Servo_Left, Servo_Right, testMode);
 
             Functions.turn(this, hardwareMap, telemetry, "Half-Right", 0.5, testMode);
 
